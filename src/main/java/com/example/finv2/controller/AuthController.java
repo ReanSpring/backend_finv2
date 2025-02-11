@@ -34,6 +34,7 @@ public class AuthController {
         return ResponseEntity.ok(userService.findUserByEmail(token));
     }
 
+
 //    list all users
     @GetMapping("/users")
     public ResponseEntity<ResponseDTO> listAllUsers(@RequestHeader("Authorization") String token) {
