@@ -18,14 +18,14 @@ public class Daily {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "monthly_id")
-    @JsonIgnore
-    private Monthly monthly;
-
-    @ManyToOne
     @JoinColumn(name = "weekly_id")
     @JsonIgnore
     private Weekly weekly;
+
+    @ManyToOne
+    @JoinColumn(name = "monthly_id")
+    @JsonIgnore
+    private Monthly monthly;
 
     @ManyToOne
     @JoinColumn(name = "yearly_id")
@@ -37,4 +37,15 @@ public class Daily {
     @JsonIgnore
     private User user;
 
+    // Default constructor
+    public Daily() {}
+
+    // Constructor for easier instantiation
+    public Daily(User user, LocalDate date, double amount, String source, String day) {
+        this.user = user;
+        this.date = date;
+        this.amount = amount;
+        this.source = source;
+        this.day = day;
+    }
 }

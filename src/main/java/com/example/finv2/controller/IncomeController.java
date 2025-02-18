@@ -15,8 +15,10 @@ public class IncomeController {
     }
 
     @GetMapping
-    public ResponseDTO<Income> getAllIncomes(@RequestHeader("Authorization") String token) {
-        return new ResponseDTO<>("Success", incomeService.findAllIncome(token), "200");
+    public ResponseDTO<Income> getAllIncome(@RequestHeader("Authorization") String token,
+                                            @RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "10") int size) {
+        return new ResponseDTO<>("Success", incomeService.findAllIncome(token, page, size), "200");
     }
 
     @PostMapping

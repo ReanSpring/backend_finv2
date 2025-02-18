@@ -1,23 +1,22 @@
 package com.example.finv2.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Data
-public class Income {
+public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
-    private String source;
-    private double amount;
+    private String taskName;
     private LocalDate date;
+    private boolean isDone;
 
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
 }

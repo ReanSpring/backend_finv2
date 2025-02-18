@@ -30,8 +30,8 @@ public class AuthController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<Map<String, String>> profile(@RequestHeader("Authorization") String token) {
-        return ResponseEntity.ok(userService.findUserByEmail(token));
+    public ResponseEntity<ResponseDTO> profile(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(new ResponseDTO<>("Profile success", userService.profile(token), "200"));
     }
 
 

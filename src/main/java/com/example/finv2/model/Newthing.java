@@ -5,19 +5,21 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 
-@Entity
 @Data
-public class Income {
+@Entity
+public class Newthing {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
-    private String source;
-    private double amount;
+    private String name;
     private LocalDate date;
 
+
     @ManyToOne
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+
 }

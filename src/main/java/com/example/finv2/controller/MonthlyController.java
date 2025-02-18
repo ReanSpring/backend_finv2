@@ -1,9 +1,10 @@
+// Updated MonthlyController class
 package com.example.finv2.controller;
-
 
 import com.example.finv2.dto.ResponseDTO;
 import com.example.finv2.model.Monthly;
 import com.example.finv2.service.MonthlyService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,5 +38,12 @@ public class MonthlyController {
         monthlyService.deleteMonthly(id, token);
         return new ResponseDTO<>("Delete monthly success", null, "200");
     }
+
+    //    download monthly report
+    @GetMapping("/download/{monthlyId}")
+    public void downloadMonthlyReport(@PathVariable Long monthlyId, @RequestHeader("Authorization") String token, HttpServletResponse response) {
+        monthlyService.downloadMonthlyReport(monthlyId, token, response);
+    }
+
 
 }

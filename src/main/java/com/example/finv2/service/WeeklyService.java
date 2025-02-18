@@ -51,6 +51,7 @@ public class WeeklyService {
         weeklyToUpdate.setWeek(weekly.getWeek());
         weeklyToUpdate.setAmount(weekly.getAmount());
         Weekly updatedWeekly = weeklyRepo.save(weeklyToUpdate);
+
         updateMonthlyTotal(updatedWeekly);
         return updatedWeekly;
     }

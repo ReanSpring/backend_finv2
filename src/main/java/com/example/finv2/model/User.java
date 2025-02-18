@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,8 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private LocalDate createdAt;
+    private double balance;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -34,7 +37,13 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Daily> dailies;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Balance balance;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Balance> balances;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Newthing> newThings;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Task> tasks;
 
 }

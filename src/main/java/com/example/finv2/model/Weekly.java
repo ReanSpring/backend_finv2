@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,8 +16,8 @@ public class Weekly {
     private String week;
     private double amount;
 
-    @OneToMany(mappedBy = "weekly")
-    private List<Daily> dailies;
+    @OneToMany(mappedBy = "weekly", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Daily> dailies = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "monthly_id")
@@ -29,12 +29,17 @@ public class Weekly {
     @JsonIgnore
     private User user;
 
-    // Add a constructor with User and week
+    // Default constructor for JPA
+    public Weekly() {}
+
+    // Constructor with User and week
     public Weekly(User user, String week) {
         this.user = user;
         this.week = week;
     }
 
-    // Default constructor for JPA
-    public Weekly() {}
+    public void addDaily(Daily daily) {
+        this.dailies.add(daily);
+        daily.setWeekly(this);  // Ensure bidirectional consistency
+    }
 }
