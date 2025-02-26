@@ -82,7 +82,7 @@ public class MonthlyService {
         }
     }
 
-public void downloadMonthlyReport(Long monthlyId, String token, HttpServletResponse response) {
+    public void downloadMonthlyReport(Long monthlyId, String token, HttpServletResponse response) {
     String username = jwtUtil.extractUsername(token.substring(7));
     User currentUser = userRepo.findUserByEmail(username).orElse(null);
     Monthly monthly = monthlyRepo.findById(monthlyId).orElse(null);
@@ -101,9 +101,12 @@ public void downloadMonthlyReport(Long monthlyId, String token, HttpServletRespo
 
         try (PrintWriter responseWriter = response.getWriter()) {
             responseWriter.println("Date,Amount,Source");
+            double totalAmount = 0.0;
             for (Daily daily : dailyRecords) {
                 responseWriter.printf("%s,%.2f,%s%n", daily.getDate(), daily.getAmount(), daily.getSource());
+                totalAmount += daily.getAmount();
             }
+            responseWriter.printf("Total,%.2f,%n", totalAmount);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error generating report", e);
         }

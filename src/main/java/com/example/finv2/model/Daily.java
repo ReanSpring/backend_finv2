@@ -16,6 +16,8 @@ public class Daily {
     private double amount;
     private String source;
     private LocalDate date;
+    @Transient
+    private String formattedDate;
 
     @ManyToOne
     @JoinColumn(name = "weekly_id")

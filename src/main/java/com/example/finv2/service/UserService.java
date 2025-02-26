@@ -8,6 +8,7 @@ import com.example.finv2.request.AuthRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,9 @@ public class UserService {
             user.setUsername(authRequest.getUsername());
             user.setEmail(authRequest.getEmail());
             user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
+            if (user.getCreatedAt() == null) {
+                user.setCreatedAt(LocalDate.now());
+            }
             userRepo.save(user);
             Map<String, String> token = jwtUtil.generateToken(user.getEmail(), "USER");
             token.put("username", user.getUsername());
